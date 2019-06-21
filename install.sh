@@ -19,7 +19,7 @@ su centos - -c 'cat /home/centos/.ssh/id_rsa.pub >> /home/centos/.ssh/authorized
 source ./openrc.sh
 
 #create clouds.yaml file from contents of openrc
-echo -e "clouds: 
+echo -e "clouds:
   tacc:
     auth:
       username: ${OS_USERNAME}
@@ -33,7 +33,7 @@ echo -e "clouds:
 # Defining a function here to check for quotas, and exit if this script will cause problems!
 # also, storing 'quotas' in a global var, so we're not calling it every single time
 quotas=$(openstack quota show)
-quota_check () 
+quota_check ()
 {
 quota_name=$1
 type_name=$2 #the name for a quota and the name for the thing itself are not the same
@@ -45,7 +45,7 @@ max_types=$(echo "$quotas" | awk -v quota=$quota_name '$0 ~ quota {print $4}')
 
 #echo "checking quota for $quota_name of $type_name to create $number_created - want $current_num to be less than $max_types"
 
-if [[ "$current_num" -lt "$((max_types + number_created))" ]]; then 
+if [[ "$current_num" -lt "$((max_types + number_created))" ]]; then
   return 0
 fi
 return 1
@@ -171,7 +171,7 @@ echo -e "/opt/ohpc/pub 10.0.0.0/24(rw,no_root_squash)" >> /etc/exports
 #Get latest CentOS7 minimal image for base - if os_image_facts or the os API allowed for wildcards,
 #  this would be different. But this is the world we live in.
 #centos_base_image=$(openstack image list | grep -i js-api-featured-centos7 | grep -vi intel | awk '{print $4}')
-centos_base_image=$(openstack image list | grep -iE "API-Featured-centos7-[[:alpha:]]{3,4}-[0-9]{2}-[0-9]{4}" | awk '{print $4}')
+centos_base_image="cirros-0.4.0-x86_64"
 sed -i "s/\(\s*compute_base_image: \).*/\1\"${centos_base_image}\"/" compute_build_base_img.yml | head -n 10
 
 # build instance for compute base image generation, take snapshot, and destroy it
@@ -187,3 +187,5 @@ systemctl enable slurmctld munge nfs-server nfs-lock nfs rpcbind nfs-idmap
 systemctl start munge slurmctld nfs-server nfs-lock nfs rpcbind nfs-idmap
 
 echo -e "If you wish to enable an email when node state is drain or down, please uncomment \nthe cron-node-check.sh job in /etc/crontab, and place your email of choice in the 'email_addr' variable \nat the beginning of /usr/local/sbin/cron-node-check.sh"
+
+# sudo vi /etc/resolv.conf and add namespace 8.8.8.8

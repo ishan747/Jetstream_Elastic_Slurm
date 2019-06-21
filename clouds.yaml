@@ -1,11 +1,10 @@
 clouds:
  THE-NAME-OF-YOUR-CLOUD:
   auth:
-   username: OS-USERNAME-SAME-AS-OPENRC
-   auth_url: SAME-AS-OPENRC
-   project_name: SAME-AS-OPENRC
-   password: SAME-AS-OPENRC
-  user_domain_name: SAME-AS-OPENRC
-  project_domain_name: SAME-AS-OPENRC
+   username: ishan747
+   auth_url: http://ruffner.rc.uab.edu:5000/v3
+   project_name: ishan747
+   password: ishan0221
+  user_domain_name: defult
+  project_domain_name: defult
   identity_api_version: 3
-
