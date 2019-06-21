@@ -4,7 +4,7 @@ clouds:
    username: ishan747
    auth_url: http://ruffner.rc.uab.edu:5000/v3
    project_name: ishan747
-   password: ishan0221
+   password: *****
   user_domain_name: defult
   project_domain_name: defult
   identity_api_version: 3
